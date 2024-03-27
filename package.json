@@ -1,9 +1,9 @@
 {
   "name": "formularity-zod-adapter",
-  "version": "0.0.2-alpha",
+  "version": "0.0.3-alpha",
   "description": "Zod Adapter for the Formularity Library",
   "main": "dist/index.js",
-  "types": "dist/src/index.d.ts",
+  "types": "dist/src/zodAdapter.d.ts",
   "files": [
     "/dist"
   ],
