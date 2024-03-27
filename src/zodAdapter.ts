@@ -57,10 +57,10 @@ export function zodAdapter<
     , options?: { async?: boolean; isField?: true | never }
 ) {
 
-    if ( !( schema instanceof ZodSchema ) ) {
-        throw new Error( `You are trying to use a schema that is not a Zod 
-            schema with this adapter. Please pass a correct Zod schema to fix this error` );
-    }
+    // if ( !( schema instanceof ZodSchema ) ) {
+    //     throw new Error( `You are trying to use a schema that is not a Zod
+    //         schema with this adapter. Please pass a correct Zod schema to fix this error` );
+    // }
 
     const isSingleFieldValidation = options?.isField;
 
