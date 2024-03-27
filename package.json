@@ -1,0 +1,57 @@
+{
+  "name": "formularity-zod-adapter",
+  "version": "0.0.1-alpha",
+  "description": "Zod Adapter for the Formularity Library",
+  "main": "dist/index.js",
+  "types": "dist/src/index.d.ts",
+  "files": [
+    "/dist"
+  ],
+  "scripts": {
+    "build": "rollup -c",
+    "lint": "eslint './{src,app}/**/*.{ts}'",
+    "prepare": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/johnsonav1992/formularity-zod-adapter"
+  },
+  "keywords": [
+    "react",
+    "typescript",
+    "forms",
+    "React forms",
+    "Formularity",
+    "Zod"
+  ],
+  "author": "Alex Johnson",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/johnsav1992/formularity-zod-adapter/issues"
+  },
+  "homepage": "https://github.com/johnsav1992/formularity-zod-adapter/#readme",
+  "peerDependencies": {
+    "typescript": ">=3.7.0"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^25.0.7",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-typescript": "^11.1.6",
+    "@typescript-eslint/eslint-plugin": "^6.19.1",
+    "@typescript-eslint/parser": "^6.19.1",
+    "depcheck": "^1.4.7",
+    "eslint": "^8.56.0",
+    "eslint-plugin-unused-imports": "^3.0.0",
+    "johnsonav-eslint-config": "^0.0.4",
+    "npm": "^10.4.0",
+    "rollup": "^3.29.4",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "formularity": "^0.1.13-alpha",
+    "tslib": "^2.6.2",
+    "zod": "^3.22.4"
+  }
+}
