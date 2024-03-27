@@ -9,12 +9,10 @@ import {
     FormErrors
     , FormValues
     , ValidationHandler
-} from 'formularity';
-import {
-    DeepKeys
+    , SingleFieldValidator
+    , DeepKeys
     , DeepValue
-} from './utilityTypes';
-import { SingleFieldValidator } from './types';
+} from 'formularity';
 
 const parseZodErrors = <
     T extends SafeParseError<TFormValues>
