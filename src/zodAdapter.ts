@@ -34,11 +34,6 @@ const parseZodErrors = <
     return formErrors as FormErrors<TFormValues>;
 };
 
-export function zodAdapter<TFormValues extends FormValues = FormValues>(
-    schema: ZodSchema<TFormValues>
-    , options?: { async?: boolean; isField?: never }
-): ValidationHandler<TFormValues>;
-
 export function zodAdapter<
     TSchemaInput extends DeepValue<TFormValues, TFieldName>
     , TFormValues extends FormValues = FormValues
@@ -47,6 +42,11 @@ export function zodAdapter<
     schema: ZodSchema<TSchemaInput>
     , options?: { async?: boolean; isField?: true }
 ): SingleFieldValidator<TFormValues, TFieldName>;
+
+export function zodAdapter<TFormValues extends FormValues = FormValues>(
+    schema: ZodSchema<TFormValues>
+    , options?: { async?: boolean; isField?: never }
+): ValidationHandler<TFormValues>;
 
 export function zodAdapter<
     TSchemaInput
