@@ -3,7 +3,7 @@
   "version": "0.0.4-alpha",
   "description": "Zod Adapter for the Formularity Library",
   "main": "dist/index.js",
-  "types": "dist/zodAdapter.d.ts",
+  "types": "dist/index.d.ts",
   "files": [
     "/dist"
   ],
