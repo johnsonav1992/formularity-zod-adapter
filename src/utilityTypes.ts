@@ -1,3 +1,5 @@
+export type Nullish = null | undefined;
+
 export type DeepKeys<TObj, IsRoot = true, TKey extends keyof TObj = keyof TObj> =
     TKey extends string | number
         ? `${ Keys<TObj, IsRoot, TKey> }${ '' | ( TObj[TKey] extends object ? DeepKeys<TObj[TKey], false> : '' ) }`

@@ -8,13 +8,13 @@ import {
 import {
     FormErrors
     , FormValues
-    , SingleFieldValidator
     , ValidationHandler
 } from 'formularity';
 import {
     DeepKeys
     , DeepValue
 } from './utilityTypes';
+import { SingleFieldValidator } from './types';
 
 const parseZodErrors = <
     T extends SafeParseError<TFormValues>
@@ -48,7 +48,6 @@ export function zodAdapter<
 >(
     schema: ZodSchema<TSchemaInput>
     , options?: { async?: boolean; isField?: true }
-//@ts-ignore
 ): SingleFieldValidator<TFormValues, TFieldName>;
 
 export function zodAdapter<
@@ -79,7 +78,6 @@ export function zodAdapter<
         return parseZodErrors( validationResult, isSingleFieldValidation );
     };
 
-    //@ts-ignore
     if ( isSingleFieldValidation ) return handler as SingleFieldValidator<TFormValues, TFieldName>;
 
     return handler as ValidationHandler<TFormValues>;
