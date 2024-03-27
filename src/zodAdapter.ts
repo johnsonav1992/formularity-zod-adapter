@@ -49,19 +49,13 @@ export function zodAdapter<TFormValues extends FormValues = FormValues>(
 ): ValidationHandler<TFormValues>;
 
 export function zodAdapter<
-    TSchemaInput
+    TSchemaInput extends DeepValue<TFormValues, TFieldName>
     , TFormValues extends FormValues = FormValues
     , TFieldName extends DeepKeys<TFormValues> = DeepKeys<TFormValues>
 > (
     schema: ZodSchema<TSchemaInput>
-    , options?: { async?: boolean; isField?: true | never }
+    , options?: { async?: boolean; isField?: boolean }
 ) {
-
-    // if ( !( schema instanceof ZodSchema ) ) {
-    //     throw new Error( `You are trying to use a schema that is not a Zod
-    //         schema with this adapter. Please pass a correct Zod schema to fix this error` );
-    // }
-
     const isSingleFieldValidation = options?.isField;
 
     const handler = async ( valueOrValues: TFormValues | TSchemaInput ) => {
