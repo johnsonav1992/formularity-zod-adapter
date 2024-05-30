@@ -1,11 +1,12 @@
 // Libraries
 import {
     SafeParseError
+    , ZodFormattedError
     , ZodSchema
 } from 'zod';
 
 // Types
-import {
+import type {
     FormErrors
     , FormValues
     , ValidationHandler
@@ -13,25 +14,41 @@ import {
     , DeepKeys
     , DeepValue
 } from 'formularity';
+import { setViaPath } from './utils';
 
 const parseZodErrors = <
     T extends SafeParseError<TFormValues>
     , TFormValues extends FormValues = FormValues
 >( errorObj: T, singleFieldValidation?: boolean ) => {
-    const flattenedZodErrors = errorObj.error.flatten();
-    const fieldErrors = flattenedZodErrors[ singleFieldValidation ? 'formErrors' : 'fieldErrors' ];
-
-    //just return all field errors for the single field -> for singleFieldValidators
-    if ( Array.isArray( fieldErrors ) && singleFieldValidation ) return fieldErrors.join( ',' );
+    const formattedZodErrors = errorObj.error.format();
 
     const formErrors: FormErrors<TFormValues> = {};
 
-    for ( const fieldError in fieldErrors ) {
-        //@ts-expect-error -> TS can't wrap its head around setting properties to this empty object
-        formErrors[ fieldError ] = fieldErrors[ fieldError as keyof typeof fieldErrors ]?.join( ',' );
+    //just return all field errors for the single field -> for singleFieldValidators
+    if ( singleFieldValidation ) {
+        return formattedZodErrors._errors.join( ',' );
     }
 
+    traverseErrors( formattedZodErrors, formErrors );
+
     return formErrors as FormErrors<TFormValues>;
+};
+
+const traverseErrors = <TFormValues extends FormValues>(
+    errors: ZodFormattedError<TFormValues>
+    , formErrors: FormErrors<TFormValues>
+    , path: string[] = []
+) => {
+    if ( errors._errors.length > 0 ) {
+        const errorPath = path.join( '.' );
+        setViaPath( formErrors, errorPath as DeepKeys<FormErrors<TFormValues>>, errors._errors.join( ', ' ) );
+    }
+
+    for ( const key in errors ) {
+        if ( key !== '_errors' && errors[ key as keyof typeof errors ] ) {
+            traverseErrors( errors[ key ] as ZodFormattedError<TFormValues>, formErrors, [ ...path, key ] );
+        }
+    }
 };
 
 export function zodAdapter<
