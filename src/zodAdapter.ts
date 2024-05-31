@@ -9,37 +9,12 @@ import {
 import {
     DeepKeys
     , DeepValue
+    , FormErrors
+    , FormValues
+    , SingleFieldValidator
+    , ValidationHandler
 } from 'formularity';
 import { setViaPath } from './utils';
-
-type FormValues = Record<PropertyKey, unknown> | null;
-type FormErrors<TFormValues extends FormValues> = MapNestedPrimitivesTo<TFormValues, string> | EmptyObject;
-type EmptyObject = Record<string, never>;
-type Primitive = string | number | boolean;
-
-type MapNestedPrimitivesTo<TObj, Output = string> = {
-    [K in keyof TObj]?: TObj[K] extends Array<infer U>
-        ? Array<
-            U extends object
-                ? MapNestedPrimitivesTo<U>
-                : U extends Primitive
-                    ? Output
-                    : never
-            >
-        : TObj[K] extends object
-            ? MapNestedPrimitivesTo<TObj[K]>
-            : Output;
-};
-
-type ValidationHandler<TFormValues extends FormValues> =
-    ( values: TFormValues ) => Promise<Partial<FormErrors<TFormValues>> | null> | Partial<FormErrors<TFormValues>>;
-
-type SingleFieldValidator<
-    TFormValues extends FormValues
-    , TFieldName extends DeepKeys<TFormValues> = DeepKeys<TFormValues>
-> = ( value: DeepValue<TFormValues, TFieldName> ) => Promise<string | Nullish> | string | Nullish;
-
-type Nullish = null | undefined;
 
 const parseZodErrors = <
     T extends SafeParseError<TFormValues>
