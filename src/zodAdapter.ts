@@ -6,7 +6,7 @@ import {
 } from 'zod';
 
 // Types
-import type {
+import {
     FormErrors
     , FormValues
     , ValidationHandler
@@ -52,17 +52,17 @@ const traverseErrors = <TFormValues extends FormValues>(
 };
 
 export function zodAdapter<
-    TSchemaInput extends DeepValue<TFormValues, TFieldName>
-    , TFormValues extends FormValues = FormValues
-    , TFieldName extends DeepKeys<TFormValues> = DeepKeys<TFormValues>
+    TFormValues extends FormValues
+    , TFieldName extends DeepKeys<TFormValues>
+    , TSchemaInput extends DeepValue<TFormValues, TFieldName> = DeepValue<TFormValues, TFieldName>
 >(
     schema: ZodSchema<TSchemaInput>
-    , options?: { async?: boolean; isField?: true }
+    , options: { async?: boolean; isField: true }
 ): SingleFieldValidator<TFormValues, TFieldName>;
 
 export function zodAdapter<TFormValues extends FormValues = FormValues>(
     schema: ZodSchema<TFormValues>
-    , options?: { async?: boolean; isField?: never }
+    , options?: { async?: boolean }
 ): ValidationHandler<TFormValues>;
 
 export function zodAdapter<
@@ -71,7 +71,7 @@ export function zodAdapter<
     , TFieldName extends DeepKeys<TFormValues> = DeepKeys<TFormValues>
 > (
     schema: ZodSchema<TSchemaInput>
-    , options?: { async?: boolean; isField?: boolean }
+    , options?: { async?: boolean; isField?: boolean | never }
 ) {
     const isSingleFieldValidation = options?.isField;
 

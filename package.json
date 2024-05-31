@@ -1,6 +1,6 @@
 {
   "name": "formularity-zod-adapter",
-  "version": "0.0.10-alpha",
+  "version": "0.0.11-alpha",
   "description": "Zod Adapter for the Formularity Library",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -50,7 +50,7 @@
     "typescript": "^5.3.3"
   },
   "dependencies": {
-    "formularity": "^0.1.14-alpha",
+    "formularity": "^0.1.16-alpha",
     "tslib": "^2.6.2",
     "zod": "^3.22.4"
   }
