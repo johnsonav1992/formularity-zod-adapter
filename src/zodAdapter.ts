@@ -10,11 +10,17 @@ import {
     FormErrors
     , FormValues
     , ValidationHandler
-    , SingleFieldValidator
     , DeepKeys
     , DeepValue
 } from 'formularity';
 import { setViaPath } from './utils';
+
+type SingleFieldValidator<
+    TFormValues extends FormValues
+    , TFieldName extends DeepKeys<TFormValues> = DeepKeys<TFormValues>
+> = ( value: DeepValue<TFormValues, TFieldName> ) => Promise<string | Nullish> | string | Nullish;
+
+type Nullish = null | undefined;
 
 const parseZodErrors = <
     T extends SafeParseError<TFormValues>
