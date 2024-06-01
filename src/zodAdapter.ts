@@ -59,11 +59,6 @@ const traverseErrors = <TFormValues extends FormValues>(
     }
 };
 
-export function zodAdapter<TFormValues extends FormValues = FormValues>(
-    schema: ZodSchema<TFormValues>
-    , options?: { async?: boolean }
-): ValidationHandler<TFormValues>;
-
 export function zodAdapter<
     TFormValues extends FormValues
     , TFieldName extends DeepKeys<TFormValues>
@@ -72,6 +67,11 @@ export function zodAdapter<
     schema: ZodSchema<TSchemaInput>
     , options: { async?: boolean; isField: true }
 ): SingleFieldValidator<TFormValues, TFieldName>;
+
+export function zodAdapter<TFormValues extends FormValues = FormValues>(
+    schema: ZodSchema<TFormValues>
+    , options?: { async?: boolean }
+): ValidationHandler<TFormValues>;
 
 export function zodAdapter<
     TFormValues extends FormValues
