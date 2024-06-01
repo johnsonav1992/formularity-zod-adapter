@@ -74,9 +74,9 @@ export function zodAdapter<
 ): SingleFieldValidator<TFormValues, TFieldName>;
 
 export function zodAdapter<
-    TSchemaInput extends DeepValue<TFormValues, TFieldName>
-    , TFormValues extends FormValues = FormValues
-    , TFieldName extends DeepKeys<TFormValues> = DeepKeys<TFormValues>
+    TFormValues extends FormValues
+    , TFieldName extends DeepKeys<TFormValues>
+    , TSchemaInput extends DeepValue<TFormValues, TFieldName> = DeepValue<TFormValues, TFieldName>
 > (
     schema: ZodSchema<TSchemaInput>
     , options?: { async?: boolean; isField?: boolean | never }
