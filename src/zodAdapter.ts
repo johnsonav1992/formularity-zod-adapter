@@ -41,15 +41,28 @@ const traverseErrors = <TFormValues extends FormValues>(
 ) => {
     if ( errors._errors.length > 0 ) {
         const errorPath = path.join( '.' );
-        setViaPath( formErrors, errorPath as DeepKeys<FormErrors<TFormValues>>, errors._errors.join( ', ' ) );
+        setViaPath(
+            formErrors,
+            errorPath as DeepKeys<FormErrors<TFormValues>>,
+            errors._errors.join( ', ' )
+        );
     }
 
     for ( const key in errors ) {
         if ( key !== '_errors' && errors[ key as keyof typeof errors ] ) {
-            traverseErrors( errors[ key ] as ZodFormattedError<TFormValues>, formErrors, [ ...path, key ] );
+            traverseErrors(
+                errors[ key ] as ZodFormattedError<TFormValues>
+                , formErrors
+                , [ ...path, key ]
+            );
         }
     }
 };
+
+export function zodAdapter<TFormValues extends FormValues = FormValues>(
+    schema: ZodSchema<TFormValues>
+    , options?: { async?: boolean }
+): ValidationHandler<TFormValues>;
 
 export function zodAdapter<
     TFormValues extends FormValues
@@ -60,11 +73,6 @@ export function zodAdapter<
     , options: { async?: boolean; isField: true }
 ): SingleFieldValidator<TFormValues, TFieldName>;
 
-export function zodAdapter<TFormValues extends FormValues = FormValues>(
-    schema: ZodSchema<TFormValues>
-    , options?: { async?: boolean }
-): ValidationHandler<TFormValues>;
-
 export function zodAdapter<
     TSchemaInput extends DeepValue<TFormValues, TFieldName>
     , TFormValues extends FormValues = FormValues
@@ -72,7 +80,7 @@ export function zodAdapter<
 > (
     schema: ZodSchema<TSchemaInput>
     , options?: { async?: boolean; isField?: boolean | never }
-) {
+): SingleFieldValidator<TFormValues, TFieldName> | ValidationHandler<TFormValues> {
     const isSingleFieldValidation = options?.isField;
 
     const handler = async ( valueOrValues: TFormValues | TSchemaInput ) => {
@@ -90,5 +98,4 @@ export function zodAdapter<
     if ( isSingleFieldValidation ) return handler as SingleFieldValidator<TFormValues, TFieldName>;
 
     return handler as ValidationHandler<TFormValues>;
-
 }
