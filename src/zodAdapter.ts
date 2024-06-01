@@ -80,7 +80,7 @@ export function zodAdapter<
 > (
     schema: ZodSchema<TSchemaInput>
     , options?: { async?: boolean; isField?: boolean | never }
-): SingleFieldValidator<TFormValues, TFieldName> | ValidationHandler<TFormValues> {
+) {
     const isSingleFieldValidation = options?.isField;
 
     const handler = async ( valueOrValues: TFormValues | TSchemaInput ) => {
