@@ -1,6 +1,6 @@
 {
   "name": "formularity-zod-adapter",
-  "version": "0.0.15-alpha",
+  "version": "0.0.16-alpha",
   "description": "Zod Adapter for the Formularity Library",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -31,7 +31,8 @@
   },
   "homepage": "https://github.com/johnsav1992/formularity-zod-adapter/#readme",
   "peerDependencies": {
-    "typescript": ">=3.7.0"
+    "typescript": ">=3.7.0",
+    "formularity": "^0.1.16-alpha"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^25.0.7",
@@ -40,7 +41,6 @@
     "@rollup/plugin-typescript": "^11.1.6",
     "@typescript-eslint/eslint-plugin": "^6.19.1",
     "@typescript-eslint/parser": "^6.19.1",
-    "depcheck": "^1.4.7",
     "eslint": "^8.56.0",
     "eslint-plugin-unused-imports": "^3.0.0",
     "johnsonav-eslint-config": "^0.0.4",
