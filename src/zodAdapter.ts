@@ -6,7 +6,7 @@ import {
 } from 'zod';
 
 // Types
-import {
+import type {
     DeepKeys
     , DeepValue
     , FormErrors
